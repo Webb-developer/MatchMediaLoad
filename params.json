@@ -1,0 +1,6 @@
+{
+  "name": "MatchMediaLoad.js",
+  "tagline": "Load images on a specified breakpoint to help reduce http requests until needed and page load speed.",
+  "body": "### Hi...\r\n\r\nBasically, MatchMediaLoad is a plain javascript function that loads images only when they're ready to be seen. This saves bandwidth and HTTP requests and loading icons.\r\n\r\nBrowsers request images even if they are hidden, which you probably don't want. You don't want to load desktop only images on a mobile browser right??\r\n\r\nSo MatchMediaLoad takes an image with a media query as an attribute and loads that image only when the media query is met.",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
