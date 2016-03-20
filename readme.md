@@ -20,6 +20,12 @@ Load images based on a specified breakpoint to help reduce HTTP requests until n
 
 
 
+window.matchMedia() has fairly good browser support. IE9 and below doesnt't support it.
+For those browsers that dont support window.matchMedia() MatchMediaLoad will just replace
+data-src to src immediately.
+
+
+
 
 ###JavaScript Usage:
 <code>MatchMediaLoad.run();</code>
@@ -35,6 +41,9 @@ MatchMediaLoad.run({
     mediaQuery: "data-match", // A window.matchMedia() media query
     class: "match-media--replaced", // Class name that will be applied once the image has been replaced 
     debounceRate: 250, // Debounce rate for window resize. 0 for no debounce.
+    done: function(){ // Function that is called after the image has been replaced
+        console.log("Image replaced");
+    }
 });
 ```
 =======
