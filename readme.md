@@ -16,4 +16,17 @@ Load images based on a specified breakpoint to help reduce HTTP requests until n
 <code>data-match</code> accepts any valid <code>window.matchMedia()</code> query. See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia">window.matchMedia() documentation</a>
 
 
-Preview: <a href="http://puigandrew1.github.io/MatchMediaLoad/" target="_blank">http://puigandrew1.github.io/MatchMediaLoad/</a>
+Usage: <code>MatchMediaLoad.run();</code>
+
+
+Usage with optional parameters (Object)
+
+```javascript
+MatchMediaLoad.run({
+    selector: "js-match-media", // Expects plain JavaScript class
+    src: "data-src",
+    mediaQuery: "data-match", // A window.matchMedia() media query
+    class: "replaced", // Class name that will be applied once the image has been replaced 
+    debounceRate: 250, // Debounce rate for window resize. 0 for no debounce.
+});
+```

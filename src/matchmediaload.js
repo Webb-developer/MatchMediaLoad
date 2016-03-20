@@ -12,7 +12,7 @@ var MatchMediaLoad = (function(window){
         selector: "js-match-media",
         src: "data-src",
         mediaQuery: "data-match",
-        class: "replaced",
+        class: "match-media--replaced",
 
         debounceRate: 250,
 
