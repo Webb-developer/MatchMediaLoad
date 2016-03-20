@@ -152,7 +152,7 @@ var MatchMediaLoad = (function(window, document){
 
             if(options.debounceRate === 0){
                 settings.debounceRate = 0;
-            } else if(options.debounceRate !== undefined && options.debounceRate !== 0){
+            } else if(options.debounceRate !== undefined){
                 settings.debounceRate = options.debounceRate;
             }
 
@@ -163,7 +163,7 @@ var MatchMediaLoad = (function(window, document){
 
             _bindUI(settings);
 
-        } else if(typeof(options) === "undefined"){
+        } else {
 
             // Use the default settings
 
