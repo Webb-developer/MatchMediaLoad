@@ -54,7 +54,7 @@ var MatchMediaLoad = (function(window){
     };
 
 
-    var _bindUI = function(){ // 2
+    var _bindUI = function(){
 
         if(settings.support === true){
 
@@ -81,22 +81,22 @@ var MatchMediaLoad = (function(window){
     };
 
 
-    var _checkIfMatch = function(){ // 3
+    var _checkIfMatch = function(){
 
         var accepted = [];
 
-        var gather   = _gatherItems();
+        var gathered   = _gatherItems();
 
 
-        for (var i = 0, l = gather.length; i < l; i++) {
+        for (var i = 0, l = gathered.length; i < l; i++) {
 
-            if(settings.cache.indexOf(gather[i]) === -1){
+            if(settings.cache.indexOf(gathered[i]) === -1){
             
-                if(window.matchMedia(gather[i].getAttribute(settings.mediaQuery)).matches === true){
+                if(window.matchMedia(gathered[i].getAttribute(settings.mediaQuery)).matches === true){
 
-                    accepted.push(gather[i]);
+                    accepted.push(gathered[i]);
 
-                    settings.cache.push(gather[i]);
+                    settings.cache.push(gathered[i]);
 
                 }
 
@@ -105,7 +105,7 @@ var MatchMediaLoad = (function(window){
         }
 
 
-        for (var i2 = 0, l2 = gather.length; i2 < l2; i2++) {
+        for (var i2 = 0, l2 = gathered.length; i2 < l2; i2++) {
 
             if(settings.cache.indexOf(accepted[i2]) !== -1){
 
@@ -137,17 +137,7 @@ var MatchMediaLoad = (function(window){
 
     var _gatherItems = function(){
 
-        var items = [];
-
-        var itemsArray = document.getElementsByClassName(settings.selector);
-
-
-        for (var i = 0, l = itemsArray.length; i < l; i++) {
-            items.push(itemsArray[i]);
-        }
-
-
-        return items;
+        return document.getElementsByClassName(settings.selector);
 
     };
 
@@ -158,7 +148,7 @@ var MatchMediaLoad = (function(window){
 
 
             // Our settings object gets augmented
-            // if the user set custom options
+            // if the user sets custom options
 
             settings.selector = options.selector || settings.selector;
 
