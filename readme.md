@@ -14,6 +14,7 @@ Load images based on a specified breakpoint to help reduce HTTP requests until n
 
 
 <code>data-match</code> accepts any valid <code>window.matchMedia()</code> query. See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia">window.matchMedia() documentation</a>
+<<<<<<< HEAD
 
 
 Usage: <code>MatchMediaLoad.run();</code>
@@ -30,3 +31,5 @@ MatchMediaLoad.run({
     debounceRate: 250, // Debounce rate for window resize. 0 for no debounce.
 });
 ```
+=======
+>>>>>>> origin/Andrew
