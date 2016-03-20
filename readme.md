@@ -36,7 +36,7 @@ data-src to src immediately.
 
 ```javascript
 MatchMediaLoad.run({
-    selector: document.getElementsByClassName(".js-match-media"), // Plain javascript or jQuery
+    selector: document.getElementsByClassName("js-match-media"), // Plain javascript or jQuery
     src: "data-src",
     mediaQuery: "data-match", // A window.matchMedia() media query
     class: "match-media--replaced", // Class name that will be applied once the image has been replaced 
