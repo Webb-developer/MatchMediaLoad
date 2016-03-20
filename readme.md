@@ -33,7 +33,7 @@ MatchMediaLoad.run({
     selector: "js-match-media", // Expects plain JavaScript class
     src: "data-src",
     mediaQuery: "data-match", // A window.matchMedia() media query
-    class: "replaced", // Class name that will be applied once the image has been replaced 
+    class: "match-media--replaced", // Class name that will be applied once the image has been replaced 
     debounceRate: 250, // Debounce rate for window resize. 0 for no debounce.
 });
 ```
