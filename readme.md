@@ -14,6 +14,3 @@ Load images based on a specified breakpoint to help reduce HTTP requests until n
 
 
 <code>data-match</code> accepts any valid <code>window.matchMedia()</code> query. See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia">window.matchMedia() documentation</a>
-
-
-Preview: <a href="http://puigandrew1.github.io/MatchMediaLoad/" target="_blank">http://puigandrew1.github.io/MatchMediaLoad/</a>
