@@ -183,8 +183,3 @@ var MatchMediaLoad = (function(window){
 
 
 })(window);
-
-
-
-MatchMediaLoad.run();
-
