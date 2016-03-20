@@ -2,14 +2,14 @@
 // @version: 1.0
 
 
-var MatchMediaLoad = (function(window){
+var MatchMediaLoad = (function(window, document){
 
     'use strict';
 
 
     var settings = {
 
-        selector: "js-match-media",
+        selector: document.getElementsByClassName("js-match-media"),
         src: "data-src",
         mediaQuery: "data-match",
         class: "match-media--replaced",
@@ -22,6 +22,8 @@ var MatchMediaLoad = (function(window){
 
     };
 
+    // Thanks to David Walsh for the debounce()
+    // https://davidwalsh.name/javascript-debounce-function
 
     var debounce = function(func, wait, immediate) {
 
@@ -75,7 +77,7 @@ var MatchMediaLoad = (function(window){
             };
 
         } else {
-            _replace(document.getElementsByClassName(settings.selector));
+            _replace(settings.selector);
         }
 
     };
@@ -85,18 +87,16 @@ var MatchMediaLoad = (function(window){
 
         var accepted = [];
 
-        var gathered   = _gatherItems();
 
+        for (var i = 0, l = settings.selector.length; i < l; i++) {
 
-        for (var i = 0, l = gathered.length; i < l; i++) {
-
-            if(settings.cache.indexOf(gathered[i]) === -1){
+            if(settings.cache.indexOf(settings.selector[i]) === -1){
             
-                if(window.matchMedia(gathered[i].getAttribute(settings.mediaQuery)).matches === true){
+                if(window.matchMedia(settings.selector[i].getAttribute(settings.mediaQuery)).matches === true){
 
-                    accepted.push(gathered[i]);
+                    accepted.push(settings.selector[i]);
 
-                    settings.cache.push(gathered[i]);
+                    settings.cache.push(settings.selector[i]);
 
                 }
 
@@ -105,7 +105,7 @@ var MatchMediaLoad = (function(window){
         }
 
 
-        for (var i2 = 0, l2 = gathered.length; i2 < l2; i2++) {
+        for (var i2 = 0, l2 = settings.selector.length; i2 < l2; i2++) {
 
             if(settings.cache.indexOf(accepted[i2]) !== -1){
 
@@ -135,17 +135,9 @@ var MatchMediaLoad = (function(window){
     };
 
 
-    var _gatherItems = function(){
-
-        return document.getElementsByClassName(settings.selector);
-
-    };
-
-
     var run = function(options){
 
         if(typeof(options) === "object"){
-
 
             // Our settings object gets augmented
             // if the user sets custom options
@@ -158,9 +150,13 @@ var MatchMediaLoad = (function(window){
 
             settings.class = options.class || settings.class;
 
-            settings.debounceRate = options.debounceRate || settings.debounceRate;
+            if(options.debounceRate === 0){
+                settings.debounceRate = 0;
+            } else if(options.debounceRate !== undefined && options.debounceRate !== 0){
+                settings.debounceRate = options.debounceRate;
+            }
 
-            settings.done = options.done || "undefined";
+            settings.done = options.done || undefined;
 
             
             // Use the augmented settings
@@ -182,4 +178,4 @@ var MatchMediaLoad = (function(window){
     };
 
 
-})(window);
+})(window, document);
