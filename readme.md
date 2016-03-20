@@ -3,7 +3,10 @@
 Load images based on a specified breakpoint to help reduce HTTP requests until needed.
 
 
-Markup usage: <code>img data-src="myDesktopImage.png" alt="" class="js-match-media" data-match="(min-width: 1000px)"</code>
+
+###Usage:
+<code>img data-src="myDesktopImage.png" alt="" class="js-match-media" data-match="(min-width: 1000px)"</code>
+
 
 
 <ul>
@@ -14,13 +17,16 @@ Markup usage: <code>img data-src="myDesktopImage.png" alt="" class="js-match-med
 
 
 <code>data-match</code> accepts any valid <code>window.matchMedia()</code> query. See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia">window.matchMedia() documentation</a>
-<<<<<<< HEAD
 
 
-JavaScript Usage: <code>MatchMediaLoad.run();</code>
 
 
-JavaScript usage with optional parameters (Object)
+###JavaScript Usage:
+<code>MatchMediaLoad.run();</code>
+
+
+###JavaScript usage with optional parameters (Object)
+
 
 ```javascript
 MatchMediaLoad.run({
