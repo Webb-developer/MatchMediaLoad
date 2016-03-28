@@ -129,7 +129,7 @@ var MatchMediaLoad = (function(window, document){
         }
 
         if(typeof(settings.done) === "function"){
-            settings.done();
+            settings.done(items);
         }
 
     };
