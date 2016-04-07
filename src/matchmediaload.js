@@ -14,11 +14,11 @@ var MatchMediaLoad = (function(window, document){
         mediaQuery: "data-match",
         class: "match-media--replaced",
 
-        debounceRate: 250,
+        debounceRate: 150,
 
         cache: [],
 
-        support: typeof(window.matchMedia) === "function" ? true : false
+        hasSupport: typeof(window.matchMedia) === "function" ? true : false
 
     };
 
@@ -58,7 +58,7 @@ var MatchMediaLoad = (function(window, document){
 
     var _bindUI = function(){
 
-        if(settings.support === true){
+        if(settings.hasSupport){
 
             // proceed normally
 
@@ -92,7 +92,7 @@ var MatchMediaLoad = (function(window, document){
 
             if(settings.cache.indexOf(settings.selector[i]) === -1){
             
-                if(window.matchMedia(settings.selector[i].getAttribute(settings.mediaQuery)).matches === true){
+                if(window.matchMedia(settings.selector[i].getAttribute(settings.mediaQuery)).matches){
 
                     accepted.push(settings.selector[i]);
 
