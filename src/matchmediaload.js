@@ -3,23 +3,38 @@
 // @todo: add multi-media support.
 
 
-var MatchMediaLoad = (function(window, document){
+var MatchMediaLoad = (function(window){
 
     'use strict';
 
 
     var settings = {
 
+        // @property {array} selector - match media element selector.
         selector: document.getElementsByClassName("js-match-media"),
+
+        // @property {string} data-src - element attribute which contains the src.
         src: "data-src",
+
+        // @property {string} data-match - element attribute which contains
+        // the media query to match.
         mediaQuery: "data-match",
+
+        // @property {string} class - class that will be applied to each element
+        // once it has been replaced.
         class: "match-media--replaced",
 
+        // @property {number} debounceRate - the debounce rate for window.onresize.
         debounceRate: 150,
 
-        cache: [],
 
-        hasSupport: typeof(window.matchMedia) === "function" ? true : false
+        // @property {array} _cache - elements that have been replaced
+        // will be pushed here. We check against the cache so we dont
+        // check the same media object more than once.
+        _cache: [],
+
+
+        _hasSupport: typeof(window.matchMedia) === "function" ? true : false
 
     };
 
@@ -60,7 +75,7 @@ var MatchMediaLoad = (function(window, document){
     var _bindUI = function(){
 
         // The browser supports matchMedia so proceed.
-        if(settings.hasSupport){
+        if(settings._hasSupport){
 
             _checkAndReplace();
 
@@ -92,7 +107,7 @@ var MatchMediaLoad = (function(window, document){
 
             // Make sure we dont check the same media object
             // more than once.
-            if(settings.cache.indexOf(settings.selector[i]) === -1){
+            if(settings._cache.indexOf(settings.selector[i]) === -1){
                 
                 // Check if the media query matches.
                 if(window.matchMedia(settings.selector[i].getAttribute(settings.mediaQuery)).matches){
@@ -101,7 +116,7 @@ var MatchMediaLoad = (function(window, document){
                     accepted.push(settings.selector[i]);
 
                     // Add the media object to the cache.
-                    settings.cache.push(settings.selector[i]);
+                    settings._cache.push(settings.selector[i]);
 
                     // Add the src attribute to the accepted media objects.
                     _replace(accepted);
@@ -173,8 +188,4 @@ var MatchMediaLoad = (function(window, document){
     };
 
 
-})(window, document);
-
-
-MatchMediaLoad.run();
-
+})(window);
