@@ -1,5 +1,6 @@
 // @author: Andrew Puig
 // @version: 1.0
+// @todo: add multi-media support.
 
 
 var MatchMediaLoad = (function(window, document){
@@ -22,9 +23,9 @@ var MatchMediaLoad = (function(window, document){
 
     };
 
+
     // Thanks to David Walsh for the debounce()
     // https://davidwalsh.name/javascript-debounce-function
-
     var debounce = function(func, wait, immediate) {
 
         var timeout;
@@ -58,17 +59,14 @@ var MatchMediaLoad = (function(window, document){
 
     var _bindUI = function(){
 
+        // The browser supports matchMedia so proceed.
         if(settings.hasSupport){
 
-            // proceed normally
-
-            _checkIfMatch();
+            _checkAndReplace();
 
 
             var debounceResize = debounce(function(){
-
-                _checkIfMatch();
-
+                _checkAndReplace();
             }, settings.debounceRate);
 
 
@@ -77,47 +75,46 @@ var MatchMediaLoad = (function(window, document){
             };
 
         } else {
+            // The browser does not support matchMedia
+            // proceed by immediately showing the media objects.
             _replace(settings.selector);
         }
 
     };
 
 
-    var _checkIfMatch = function(){
+    var _checkAndReplace = function(){
 
         var accepted = [];
 
 
         for (var i = 0, l = settings.selector.length; i < l; i++) {
 
+            // Make sure we dont check the same media object
+            // more than once.
             if(settings.cache.indexOf(settings.selector[i]) === -1){
-            
+                
+                // Check if the media query matches.
                 if(window.matchMedia(settings.selector[i].getAttribute(settings.mediaQuery)).matches){
 
+                    // Add the media object to the accepted array.
                     accepted.push(settings.selector[i]);
 
+                    // Add the media object to the cache.
                     settings.cache.push(settings.selector[i]);
+
+                    // Add the src attribute to the accepted media objects.
+                    _replace(accepted);
 
                 }
 
             }
-
-        }
-
-
-        for (var i2 = 0, l2 = settings.selector.length; i2 < l2; i2++) {
-
-            if(settings.cache.indexOf(accepted[i2]) !== -1){
-
-                _replace(accepted);
-
-            }
-
         }
 
     };
 
-
+    // @param {array} items - the items that have
+    // been matched and can be replaced.
     var _replace = function(items){
 
         for (var i = 0, l = items.length; i < l; i++) {
@@ -134,13 +131,12 @@ var MatchMediaLoad = (function(window, document){
 
     };
 
-
+    // @param {object} options - the user defined settings
     var run = function(options){
 
+        // Our settings object gets augmented
+        // if the user sets custom options.
         if(typeof(options) === "object"){
-
-            // Our settings object gets augmented
-            // if the user sets custom options
 
             settings.selector = options.selector || settings.selector;
 
@@ -159,15 +155,14 @@ var MatchMediaLoad = (function(window, document){
             settings.done = options.done || undefined;
 
             
-            // Use the augmented settings
-
+            // Use the user augmented settings
             _bindUI(settings);
 
         } else {
 
             // Use the default settings
-
             _bindUI(settings);
+
         }
 
     };
@@ -179,3 +174,7 @@ var MatchMediaLoad = (function(window, document){
 
 
 })(window, document);
+
+
+MatchMediaLoad.run();
+
