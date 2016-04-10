@@ -1,6 +1,5 @@
 // @author: Andrew Puig
-// @version: 1.0
-// @todo: add multi-media support.
+// @version: 1.5
 
 
 var MatchMediaLoad = (function(window){
@@ -34,7 +33,14 @@ var MatchMediaLoad = (function(window){
         _cache: [],
 
 
-        _hasSupport: typeof(window.matchMedia) === "function" ? true : false
+        // Check for window.matchMedia support. 
+        _hasSupport: typeof(window.matchMedia) === "function" ? true : false,
+
+
+        // @property {regex} FORMAT - regex to check for valid video file types. 
+        _video: {
+            FORMAT: new RegExp(/\.(ogg|mp4|webm)$/i)
+        }
 
     };
 
@@ -128,23 +134,53 @@ var MatchMediaLoad = (function(window){
 
     };
 
+
     // @param {array} items - the items that have
     // been matched and can be replaced.
     var _replace = function(items){
 
         for (var i = 0, l = items.length; i < l; i++) {
 
-            items[i].setAttribute("src", items[i].getAttribute(settings.src));
+            // It's a video. Treat it specially.
+            if(items[i].tagName === "VIDEO"){
 
-            items[i].classList.add(settings.class);
+                // Loop through video sources.
+                for (var ii = 0, ll = items[i].getAttribute(settings.src).split(", ").length; ii < ll; ii++) {
+
+                    // Check for a valid video file extension and 
+                    // check for the first available video format that can be played in the browser.
+                    if(items[i].getAttribute(settings.src).split(", ")[ii].search(settings._video.FORMAT) !== -1 && items[i].canPlayType("video/" + items[i].getAttribute(settings.src).split(", ")[ii].match(settings._video.FORMAT)[1]) !== ""){
+
+                        items[i].setAttribute("src", items[i].getAttribute(settings.src).split(", ")[ii]);
+
+                        items[i].classList.add(settings.class);
+
+                        items[i].play();
+
+                        break;
+
+                    }
+
+                }
+
+            } else {
+
+                items[i].setAttribute("src", items[i].getAttribute(settings.src));
+
+                items[i].classList.add(settings.class);
+
+            }
 
         }
 
-        if(typeof(settings.done) === "function"){
-            settings.done(items);
+
+        // settings.after() returns the replaced element.
+        if(typeof(settings.after) === "function"){
+            settings.after(items);
         }
 
     };
+
 
     // @param {object} options - the user defined settings
     var run = function(options){
@@ -167,8 +203,8 @@ var MatchMediaLoad = (function(window){
                 settings.debounceRate = options.debounceRate;
             }
 
-            settings.done = options.done || undefined;
-
+            settings.after = options.after || undefined;
+            
             
             // Use the user augmented settings
             _bindUI(settings);
