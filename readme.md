@@ -10,7 +10,7 @@ Currently, MatchMediaLoad supports images and HTML5 videos.
 
 
 ####For HTML5 Video:
-<code><video data-src="video1.mp4, video2.ogg" class="js-match-media" data-match="(min-width: 900px)"></video></code>
+<code>video data-src="video1.mp4, video2.ogg" class="js-match-media" data-match="(min-width: 900px)"</code>
 
 Split multiple video sources with a comma and a space ", "
 MatchMediaLoad will accept .mp4, .ogg and .webm file types. It will play the first 
