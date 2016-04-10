@@ -83,13 +83,12 @@ var MatchMediaLoad = (function(window){
         // The browser supports matchMedia so proceed.
         if(settings._hasSupport){
 
-            _checkAndReplace();
-
-
             var debounceResize = debounce(function(){
                 _checkAndReplace();
             }, settings.debounceRate);
 
+
+            _checkAndReplace();
 
             window.onresize = function(){
                 debounceResize();
