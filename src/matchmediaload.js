@@ -1,5 +1,8 @@
-// @author: Andrew Puig
-// @version: 1.5
+/**
+@author: Andrew Puig
+@version: 1.55
+@todo add matchMedia polyfill
+*/
 
 
 var MatchMediaLoad = (function(window){
@@ -9,44 +12,69 @@ var MatchMediaLoad = (function(window){
 
     var settings = {
 
-        // @property {array} selector - match media element selector.
+        /**
+        @property {object} settings.selector
+        The target element.
+        */
         selector: document.getElementsByClassName("js-match-media"),
 
-        // @property {string} data-src - element attribute which contains the src.
+        /**
+        @property {string} settings.src
+        The settings.selector attribute whose value contains
+        the pseudo src.
+        */
         src: "data-src",
 
-        // @property {string} data-match - element attribute which contains
-        // the media query to match.
+        /**
+        @property {string} settings.mediaQuery
+        The settings.selector attribute whose value contains
+        the media query to match.
+        */
         mediaQuery: "data-match",
 
-        // @property {string} class - class that will be applied to each element
-        // once it has been replaced.
+        /**
+        @const
+        @property {string} settings.class
+        The class that will be applied to each element
+        once it has been replaced.
+        */
         class: "match-media--replaced",
 
-        // @property {number} debounceRate - the debounce rate for window.onresize.
+        /**
+        @const
+        @property {number} settings.debounceRate
+        The debounce rate for the window resize event.
+        */
         debounceRate: 150,
 
-
-        // @property {array} _cache - elements that have been replaced
-        // will be pushed here. We check against the cache so we dont
-        // check the same media object more than once.
+        /**
+        @property {array} settings._cache
+        Elements that have been replaced will be pushed here.
+        We check against the cache so we dont check
+        the same media object more than once.
+        */
         _cache: [],
 
-
-        // Check for window.matchMedia support. 
+        /*
+        Check for window.matchMedia support.
+        */
         _hasSupport: typeof(window.matchMedia) === "function" ? true : false,
 
-
-        // @property {regex} FORMAT - regex to check for valid video file types. 
         _video: {
+            /**
+            @property {regex} settings.FORMAT
+            A regex to check for valid video extensions.
+            */
             FORMAT: new RegExp(/\.(ogg|mp4|webm)$/i)
         }
 
     };
 
 
-    // Thanks to David Walsh for the debounce()
-    // https://davidwalsh.name/javascript-debounce-function
+    /*
+    Thanks to David Walsh for the debounce()
+    [https://davidwalsh.name/javascript-debounce-function]
+    */
     var debounce = function(func, wait, immediate) {
 
         var timeout;
@@ -134,11 +162,13 @@ var MatchMediaLoad = (function(window){
     };
 
 
-    // @param {array} items - the items that have
-    // been matched and can be replaced.
+    /**
+    @param {array} items - the items that have
+    been matched and can be replaced.
+    */
     var _replace = function(items){
 
-        for (var i = 0, l = items.length; i < l; i++) {
+        for (var i = 0, l = items.length; i < l; i++){
 
             // It's a video. Treat it specially.
             if(items[i].tagName === "VIDEO"){
@@ -187,11 +217,15 @@ var MatchMediaLoad = (function(window){
     };
 
 
-    // @param {object} options - the user defined settings
+    /**
+    @param {object} options - the user defined settings
+    */
     var run = function(options){
 
-        // Our settings object gets augmented
-        // if the user sets custom options.
+        /*
+        Our settings object gets augmented
+        if the user sets custom options.
+        */
         if(typeof(options) === "object"){
 
             settings.selector = options.selector || settings.selector;
@@ -229,4 +263,4 @@ var MatchMediaLoad = (function(window){
     };
 
 
-})(window);
+})(window).run();
