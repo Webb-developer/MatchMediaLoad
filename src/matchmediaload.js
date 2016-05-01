@@ -162,6 +162,12 @@ var MatchMediaLoad = (function(window){
 
                 }
 
+            } else if(items[i].tagName !== "IMG") {
+
+                items[i].style.backgroundImage = "url(" + items[i].getAttribute(settings.src) + ")";
+
+                items[i].classList.add(settings.class);
+
             } else {
 
                 items[i].setAttribute("src", items[i].getAttribute(settings.src));
